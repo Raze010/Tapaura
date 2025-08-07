@@ -1,4 +1,7 @@
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
 public class Competence {
     public Leveler Leveler;
 
@@ -8,7 +11,7 @@ public class Competence {
         Leveler.EventGainNiveau += EventLevelerMonterNiveau;
     }
 
-    public void EventLevelerMonterNiveau (int OrDepense) {
+    public void EventLevelerMonterNiveau (float OrDepense) {
 
     }
 

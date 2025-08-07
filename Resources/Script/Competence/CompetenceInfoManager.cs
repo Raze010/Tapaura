@@ -1,4 +1,7 @@
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
 
 public class CompetenceInfoManager {
     private static readonly Lazy<CompetenceInfoManager> lazy = new Lazy<CompetenceInfoManager>(() => new CompetenceInfoManager());
@@ -40,7 +43,7 @@ public class CompetenceInfoManager {
         return DicoCompetenceInfo[id].SousDescription;
     }
 
-    public CompetenceInfo() {
+    public CompetenceInfoManager() {
         InitInfo();
     }
 
@@ -59,9 +62,7 @@ public class CompetenceInfoManager {
         AjouterInfo(ID.Muel_FrappeOr, "Frappe en or", "Vos frappes vous font gagner 1% de l’or de l’ennemie");
     }
 
-    public void AjouterInfo(ID id, string titre, string description, string sousTitre, string sousDescription) {
+    public void AjouterInfo(ID id, string titre = "", string description = "", string sousTitre = "", string sousDescription = "") {
         DicoCompetenceInfo.Add(id, new CompetenceInfo(titre, description, sousTitre, sousDescription));
     }
 }
-
-public C

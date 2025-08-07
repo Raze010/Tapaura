@@ -1,15 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+public partial class Leveler : MonoBehaviour{
 
-public class Leveler {
+    public LevelerInfoManager.ID ID;
 
+    [HideInInspector]
+    public LevelerInfo info;
+
+    public void Start()
+    {
+        info = LevelerInfoManager.Instance.ObtenirInfo(ID);
+
+        info.Leveler = this;
+
+        Niveau = info.NiveauStarter;
+        CoutOr = info.CoutOrStarter;
+    }
+
+    [HideInInspector]
     public float CoutOr;
+
+    [HideInInspector]
     /// <summary>
     /// Le cout en or totale dépensé pour les gains de niveau / l'achat de compétence
     /// </summary>
     public float CoutOrTotale;
 
+    [HideInInspector]
     public int Niveau = 0, NiveauMax = 200;
 
-    public delegate void EventNiveauDelegate(int OrDepense);
+    public delegate void EventNiveauDelegate(float OrDepense);
 
     public EventNiveauDelegate EventGainNiveau;
 
@@ -25,7 +47,7 @@ public class Leveler {
 
         Chasseur.Instance.RetirerOr(CoutOr);
 
-        EventGainNiveau(CoutOr);
+        EventGainNiveau?.Invoke(CoutOr);
 
         CoutOrTotale += CoutOr;
         CoutOr += 5;
@@ -39,5 +61,10 @@ public class Leveler {
         CoutOrTotale += competence.CoutOr;
 
         Chasseur.Instance.CalcCarac();
+    }
+
+    public virtual string Suffixe ()
+    {
+        return "";
     }
 }
