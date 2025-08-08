@@ -9,6 +9,10 @@ public class CompetenceInfoManager {
 
     public enum ID {
 
+        //Commun
+        FrappeSup,
+        AuraSup,
+
         //Expertise
         Expertise_Or,
         Expertise_Anomalie,

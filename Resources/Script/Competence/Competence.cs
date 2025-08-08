@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class Competence {
+
+public partial class Competence {
     public Leveler Leveler;
+    public CompetenceInfo Info;
+
+    public CompetenceInfoManager.ID ID;
+
+    public void Start () {
+        info = CompetenceInfoManager.Instance.ObtenirInfo(ID);
+    }
 
     public void DefinirLeveler(Leveler leveler) {
         Leveler = leveler;
@@ -11,9 +19,9 @@ public class Competence {
         Leveler.EventGainNiveau += EventLevelerMonterNiveau;
     }
 
-    public void EventLevelerMonterNiveau (float OrDepense) {
+    public void EventLevelerMonterNiveau (float OrDepense) {  }
 
-    }
+    public bool EstVisible = false;
 
     public int NiveauDebloquer = 10;
 
@@ -38,5 +46,11 @@ public class Competence {
         Chasseur.Instance.RetirerOr(CoutOr);
 
         Leveler.NouvelleCompetenceAcheter(this);
+    }
+
+    public virtual void StartFunc() { }
+
+    public void Update () {
+
     }
 }
