@@ -25,29 +25,59 @@ public partial class Chasseur : MonoBehaviour
     public float PV = 30, PVMax = 30;
 
     [HideInInspector]
-    public float DgtFrappe = 1, DgtAura = 0;
+    public GN DgtFrappe, DgtAura;
 
     public void CalcCarac()
     {
         PVMax = 30;
 
+        DgtFrappe = CalcFrappe();
+        DgtAura = CalcAura();
+    }
+
+    public GN CalcFrappe()
+    {
+        GN frappe = new GN();
+
         Leveler_Frappe frappeLeveler = LevelerInfoManager.Instance.ObtenirLeveler(LevelerInfoManager.ID.Chasseur_Frappe) as Leveler_Frappe;
+
+        frappe.Ajouter(frappeLeveler.Frappe());
+
+        if (TestHelper.Instance.Active && TestHelper.Instance.FrappeInstaKill) frappe = new GN(float.MaxValue);
+
+        return frappe;
+    }
+
+    public GN CalcAura()
+    {
+        GN aura = new GN();
+
         Leveler_Aura auraLeveler = LevelerInfoManager.Instance.ObtenirLeveler(LevelerInfoManager.ID.Chasseur_Aura) as Leveler_Aura;
 
-        DgtFrappe = frappeLeveler.Frappe() +10;
-        DgtAura = auraLeveler.Aura();
+        aura = auraLeveler.Aura();
+
+        if (TestHelper.Instance.Active && TestHelper.Instance.AuraInstaKill) aura = new GN(float.MaxValue);
+
+        return aura;
     }
 
     public void Update()
     {
+        CalcCarac();
+
         if (TouchHelper.TapDetecter(out var pos) && pos.y >= 0.3f)
         {
-            EnnemyManager.Instance.Ennemy.Damage(DgtFrappe);
+            Frappe();
         }
 
-        if(DgtAura > 0)
+        if (DgtAura.Nombre > 0)
         {
-            EnnemyManager.Instance.Ennemy.Damage(DgtAura * Time.deltaTime);
+            EnnemyManager.Instance.Ennemy.Damage(new GN(DgtAura.Nombre * Time.deltaTime,DgtAura.Exposant));
         }
+    }
+
+    public void Frappe()
+    {
+        EnnemyManager.Instance.Ennemy.Damage(DgtFrappe);
     }
 }

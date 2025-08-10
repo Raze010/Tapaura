@@ -58,7 +58,7 @@ public class LevelerInfoManager
     {
         DicoLevelerInfo.Clear();
 
-        AjouterInfo(ID.Chasseur_Expertise, "Expertise", "Obtenez de précieux outils").SetStarter(0, 300);
+        AjouterInfo(ID.Chasseur_Expertise, "Expertise", "Obtenez de précieux outils").SetStarter(0,100);
         AjouterInfo(ID.Chasseur_Frappe, "Frappe", "Augmentez les dégâts de vos frappes", "", "La frappe est les dégâts infligés lorsque vous tapotez votre ecran");
         AjouterInfo(ID.Chasseur_Aura, "Aura", "Augmentez les dégâts de votre AURA", "", "L'aura inflige des dégâts chaque seconde passivement").SetStarter(0, 50);
 

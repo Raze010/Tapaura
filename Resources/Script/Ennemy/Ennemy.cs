@@ -3,21 +3,21 @@ using UnityEngine;
 public class Ennemy : MonoBehaviour
 {
     [HideInInspector]
-    public float PV = 10, PVMax = 10;
+    public GN PV, PVMax;
 
     [HideInInspector]
     public bool dead = false;
 
-    public void Damage (float amount)
+    public void Damage(GN amount)
     {
         if (dead)
             return;
 
-        PV -= amount;
-        if (PV <= 0) {
-            PV = 0;
+        PV.Retirer(amount);
+        if (PV.Nombre <= 0)
+        {
             dead = true;
-            EnnemyManager.Instance.KilledEnnemy();
+            EnnemyManager.Instance.TuerEnnemie(true, false);
         }
     }
 }

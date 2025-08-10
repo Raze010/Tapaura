@@ -4,11 +4,11 @@ public class Leveler_Frappe : Leveler
 {
     public override string Suffixe()
     {
-        return Frappe() + " " + LevelerInfo.dpt;
+        return Frappe().ValeurAffichage() + " " + LevelerInfo.dpt;
     }
 
-    public float Frappe ()
+    public GN Frappe ()
     {
-        return Niveau;
+        return new GN(Niveau * ObtenirCompetencePuissance(CompetenceInfoManager.ID.FrappeSup));
     }
 }
